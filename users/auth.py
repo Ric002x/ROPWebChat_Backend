@@ -16,7 +16,7 @@ class Authentication:
         if User.objects.filter(email=email).exists():
             return False
 
-        user = User(
+        user = User.objects.create(
             email=email,
             name=name,
             password=make_password(password)
