@@ -28,7 +28,8 @@ class SigninView(APIView, Authentication):
             raise AuthenticationFailed
 
         user = UserSerializer(signin).data
-        access_token = RefreshToken.for_user(signin).access_token
+        access_token = RefreshToken.for_user(
+            signin).access_token  # type: ignore
 
         return Response({
             "user": user,
@@ -53,7 +54,8 @@ class SignupView(APIView, Authentication):
             raise AuthenticationFailed
 
         user = UserSerializer(signup).data
-        access_token = RefreshToken.for_user(signup).access_token
+        access_token = RefreshToken.for_user(
+            signup).access_token  # type: ignore
 
         return Response({
             "user": user,
@@ -104,7 +106,9 @@ class UserView(APIView):
         if not serializer.is_valid():
             if avatar:
                 storage.delete(avatar.split("/")[-1])
-            first_error = list(serializer.errors.values())[0][0]
+            first_error = list(
+                serializer.errors.values()  # type: ignore
+            )[0][0]
 
             raise ValidationError(first_error)
 
