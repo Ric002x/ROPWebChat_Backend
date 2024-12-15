@@ -9,8 +9,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from setup.utils.exceptions import ValidationError
 from users.auth import Authentication
-from users.exceptions import ValidationError
 from users.models import User
 from users.serializers import UserSerializer
 
