@@ -32,7 +32,10 @@ class ChatsView(BaseView):
         user = self.get_user(email=email)
 
         # Checking if chat already exist
-        chat = self.has_existing_chat(user_id=request.user.id, to_user=user.id)
+        chat = self.has_existing_chat(
+            user_id=request.user.id,
+            to_user=user.id  # type: ignore
+        )
 
         # Creating Chat
         if not chat:
@@ -49,7 +52,9 @@ class ChatsView(BaseView):
 
             socket.emit("update_chat", {
                 "query": {
-                    "users": [request.user.id, user.id]
+                    "users": [
+                        request.user.id, user.id  # type: ignore
+                    ]
                 }
             })
 
@@ -74,7 +79,9 @@ class ChatView(BaseView):
             socket.emit("update_chat", {
                 "type": "deleted",
                 "query": {
-                    "users": {chat.from_user_id, chat.to_user_id}
+                    "users": [
+                        chat.from_user_id, chat.to_user_id  # type: ignore
+                    ]
                 }
             })
 
