@@ -20,7 +20,7 @@ class Chat(models.Model):
 
 class ChatMessage(models.Model):
     body = models.TextField()
-    attachment = models.CharField(
+    attachment_code = models.CharField(
         choices=[("FILE", "FILE"), ("AUDIO", "AUDIO")],
         max_length=10,
         null=True
