@@ -19,8 +19,9 @@ class BaseView(APIView):
 
     def has_existing_chat(self, user_id, to_user) -> Chat | None:
         chat = Chat.objects.filter(
-            Q(from_user=user_id) & Q(to_user=to_user),
-            Q(to_user=to_user) & Q(from_user=user_id)
+            Q(from_user=user_id) & Q(to_user=to_user) |
+            Q(to_user=to_user) & Q(from_user=user_id),
+            deleted_at__isnull=True
         ).first()
 
         serializer = ChatSerializer(chat, context={'user_id': user_id}).data
