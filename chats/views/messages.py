@@ -31,7 +31,7 @@ class ChatMessagesView(BaseView):
 
         messages = ChatMessage.objects.filter(
             chat_id=chat_id, deleted_at__isnull=True,
-        ).order_by('-created_at').all()
+        ).order_by('created_at').all()
 
         serializer = ChatMessageSerializer(messages, many=True)
 
